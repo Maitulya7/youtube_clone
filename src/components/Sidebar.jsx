@@ -1,7 +1,13 @@
 import { Stack } from "@mui/material";
 import { categories } from "../utils/constantItems";
-const Sidebar = () => {
-  const selectedCategory = "New";
+
+const Sidebar = ({ selectedCategory, setSelectedCategory }) => {
+  const handleCategoryClick = (categoryName) => {
+    if (categoryName !== selectedCategory) {
+      setSelectedCategory(categoryName);
+    }
+  };
+
   return (
     <>
       <Stack
@@ -14,6 +20,7 @@ const Sidebar = () => {
       >
         {categories.map((category) => (
           <button
+            onClick={() => handleCategoryClick(category.name)}
             key={category.name}
             className="category-btn"
             style={{
@@ -21,8 +28,21 @@ const Sidebar = () => {
               color: "white",
             }}
           >
-            <span style={{ marginRight: '15px' , color:category.name === selectedCategory ? 'white' : 'red'}}>{category.icon}</span>
-            <span style={{opacity:category.name === selectedCategory ? '1':'0.8'}}>{category.name}</span>
+            <span
+              style={{
+                marginRight: "15px",
+                color: category.name === selectedCategory ? "white" : "red",
+              }}
+            >
+              {category.icon}
+            </span>
+            <span
+              style={{
+                opacity: category.name === selectedCategory ? "1" : "0.8",
+              }}
+            >
+              {category.name}
+            </span>
           </button>
         ))}
       </Stack>
